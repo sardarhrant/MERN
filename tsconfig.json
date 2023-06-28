@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "target": "ES5",
+        "lib": ["DOM", "ES2021", "ScriptHost"],
+        "jsx": "react-jsx",
+        "moduleResolution": "Node",
+        "allowJs": true,
+        "downlevelIteration": true,
+        "esModuleInterop": true,
+        "preserveSymlinks": true,
+        "resolveJsonModule": true,
+        "skipDefaultLibCheck": true,
+        "sourceMap": true,
+        "useUnknownInCatchVariables": false,
+        "module": "commonjs"
+    },
+    "include": ["src"],
+    "exclude": [
+        "node_modules"
+    ]
+}
