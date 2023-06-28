@@ -10,6 +10,8 @@
   "author": "Hrant Sardaryan",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.4.0",
+    "cors": "^2.8.5",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "mongodb": "^5.6.0",
@@ -21,7 +23,10 @@
     "webpack-cli": "^5.1.4"
   },
   "devDependencies": {
+    "@typescript-eslint/parser": "^5.60.1",
     "eslint": "^8.43.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.8.8",
     "ts-node-dev": "^2.0.0"
   }

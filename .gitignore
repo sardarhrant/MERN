@@ -1,9 +1,6 @@
 /node_modules
-/.pnp
-.pnp.js
+.vscode
+/dist/main.js
 
-/coverage
-/copy
-# /dist
 
 .DS_Store
