@@ -5,9 +5,9 @@ import { fetchContests } from "../api-client";
 const ContestList = ({ initialContestsList }) => {
     let [contestList, setContestList] = useState(initialContestsList);
     useEffect(() => {
-        fetchContests().then(response => {
-            setContestList(contestList = response.contests);
-        });
+        // fetchContests().then(contests => {
+        //     setContestList(contestList = contests);
+        // });
     }, []);
     return (
         <div className="contest-list">
