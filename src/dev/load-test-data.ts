@@ -1,7 +1,7 @@
-import { connectClient, disConnectClient } from "../server/db";
+import { connectMongoClient, disConnectMongoClient } from "../server/db";
 
 async function main() {
-    const client = await connectClient();
+    const client = await connectMongoClient();
 
     await client.collection("contests").deleteMany({});
 
@@ -80,7 +80,7 @@ A list of free online programming books, categorized by languages/topics
 
     console.info("Inserted Contests:", resp.insertedCount);
 
-    disConnectClient();
+    disConnectMongoClient();
 }
 
 main();

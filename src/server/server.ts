@@ -11,14 +11,16 @@ server.set("view engine", "ejs");
 
 server.use("/api", apiRouter);
 
-server.use("/", async (req, res) => {
-    const { initialMarkup, initialData } = await serverRender();
+server.get(["/", "/contest/:contestId"], async (req, res) => {
+    const { initialMarkup, initialData } = await serverRender(req);
     res.render("index", {
         initialMarkup,
-        initialData
+        initialData,
     });
 });
 
 server.listen(config.PORT, config.HOST, () => {
-    console.log(`Express server is listening at ${config.SERVER_URL}`);
+    console.log(
+        `Express is listening at ${config.SERVER_URL}`,
+    );
 });

@@ -1,23 +1,24 @@
 import { MongoClient } from "mongodb";
-import { MOGODB_URI, DATABASE_NAME } from "./config";
+
+import { MONGODB_URI, DATABASE_NAME } from "./config";
 
 let connectedClient;
 
-export const connectClient = async () => {
+export const connectMongoClient = async () => {
     if (connectedClient) {
-        connectedClient.db(DATABASE_NAME);
+        return connectedClient.db(DATABASE_NAME);
     }
 
-    const client = new MongoClient(MOGODB_URI);
+    const client = new MongoClient(MONGODB_URI);
     await client.connect();
     await client.db(DATABASE_NAME).command({ ping: 1 });
     console.info("Connected to MongoDB");
+
     connectedClient = client;
 
     return connectedClient.db(DATABASE_NAME);
 };
 
-export const disConnectClient = async () => {
+export const disConnectMongoClient = async () => {
     await connectedClient?.close();
-    console.info("Disconnected from MongoDB");
 };
