@@ -5,7 +5,9 @@ import { connectMongoClient } from "./db";
 
 const router = express.Router();
 router.use(cors());
+router.use(express.json());
 
+//Get contest List
 router.get('/contests', async (req, res) => {
     const client = await connectMongoClient();
     const contests = await client.collection("contests")
@@ -21,6 +23,8 @@ router.get('/contests', async (req, res) => {
     res.send({ contests });
 });
 
+
+// Get contest by ID
 router.get("/contest/:contestId", async (req, res) => {
     const client = await connectMongoClient();
     const singleContest = await client.collection("contests")
@@ -29,6 +33,27 @@ router.get("/contest/:contestId", async (req, res) => {
         });
 
     res.send({ contest: singleContest });
+});
+
+// Add new name
+router.post("/contest/:contestId", async (req, res) => {
+
+    const client = await connectMongoClient();
+    const newContest = await client.collection("contests").findOneAndUpdate(
+        { id: req.params.contestId },
+        {
+            $push: {
+                names: {
+                    id: req.body.newNameValue.toLowerCase().replace(/\s/g, "-"),
+                    name: req.body.newNameValue,
+                    timestamp: new Date()
+                }
+            }
+        },
+        { returnDocument: "after" }
+    );
+
+    res.send({ newContest: newContest.value });
 });
 
 export default router;
