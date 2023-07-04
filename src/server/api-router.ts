@@ -2,6 +2,7 @@ import express from "express";
 import testData from "../test-data.json";
 import cors from "cors";
 import { connectMongoClient } from "./db";
+import { ObjectId } from "mongodb";
 
 const router = express.Router();
 router.use(cors());
@@ -54,6 +55,28 @@ router.post("/contest/:contestId", async (req, res) => {
     );
 
     res.send({ newContest: newContest.value });
+});
+
+//Add New Contest
+router.post('/contest/', async (req, res) => {
+    const requestBody = req.body;
+    const client = await connectMongoClient();
+    const newContest = await client.collection("contests").insertOne(
+        {
+            id: requestBody.contestName.toLowerCase().replace(/\s/g, '-'),
+            categoryName: requestBody.contestName,
+            contestName: requestBody.contestCategory,
+            description: requestBody.contestDescription,
+            names: [],
+            timestamp: new Date()
+        },
+        { returnDocument: "after" }
+    );
+
+    const insertedId = newContest.insertedId;
+    const retrievedData = await client.collection("contests").findOne({ _id: new ObjectId(insertedId) });
+
+    res.send({ newContest: retrievedData });
 });
 
 export default router;

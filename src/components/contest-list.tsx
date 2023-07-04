@@ -4,6 +4,7 @@ import { fetchContestList } from "../api-client";
 
 import ContestPreview from "./contest-preview";
 import Header from "./header";
+import AddNewContest from "./add-new-contest";
 
 const ContestList = ({ initialContests, onContestClick }) => {
     const [contests, setContests] = useState(initialContests);
@@ -19,12 +20,15 @@ const ContestList = ({ initialContests, onContestClick }) => {
     return (
         <>
             <Header message="Naming Contests" />
+            <AddNewContest updateList={(newContest) => {
+                setContests([...contests, newContest]);
+            }} />
 
             <div className="contest-list">
-                {contests?.map((contest) => {
+                {contests?.map((contest, idx) => {
                     return (
                         <ContestPreview
-                            key={contest.id}
+                            key={idx}
                             contest={contest}
                             onClick={onContestClick}
                         />
